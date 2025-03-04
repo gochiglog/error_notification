@@ -1,27 +1,24 @@
 # error_notification
 
-Bashスクリプトを利用して、任意のコマンドやスクリプト（例：Pythonなど）の実行結果が「成功したか／失敗したか」をLINEに通知するプロジェクトです。 
+Bashスクリプトを利用して、任意のコマンドやスクリプト（例：Pythonなど）の実行結果が
+「成功したか／失敗したか」をLINEに通知するプロジェクトです。
 
-```plaintext  　　　　　　　　　　　　　┌─────────────────────────────────────┐┌────────────────────────────────────────┐
-│ (A) Webhook Handling                 ││ (B) Error Notification                │
-│  linebot_webhook_handler (Lambda)  　││  notify_error (Lambda)                │
-└──────────────────────────────────────┘└───────────────────────────────────────┘
-       [User's LINE BOT] (友だち追加)                    [User's PC] (エラー発生)
-                   |                                               |
-                   v                                               v
-        +----------------------------+                 +----------------------------+
-        |  API Gateway (/webhook)   |                 |  API Gateway (/notifyError)|
-        +----------------------------+                 +----------------------------+
-                   |                                               |
-                   v                                               v
-[ linebot_webhook_handler (Lambda) ]                [ notify_error (Lambda) ]
- - followイベント受信→DynamoDBに userId保存             - userId & errorMsg を受け取り
-                                                       - LINE へ Push 通知
-                   |                                               |
-                   v                                               v
-               [DynamoDB]                                    [User's LINE BOT]
+以下の図は (A) Webhook Handling と (B) Error Notification を横並びで示したシステム構成です。
 
----
+```plaintext
+       ┌───────────────────────────┐         ┌───────────────────────────┐
+       │ (A) Webhook Handling     │         │ (B) Error Notification    │
+       │ linebot_webhook_handler  │         │  notify_error (Lambda)    │
+       │ (Lambda)                 │         │                           │
+       └───────────────────────────┘         └───────────────────────────┘
+
+(ユーザPC) ─(エラー発生)─> [API Gateway (/notifyError)] ─> notify_error
+                 │
+(友だち追加) ─> [API Gateway (/webhook)] ─> linebot_webhook_handler
+                 │
+                [DynamoDB] ──> [User's LINE BOT]
+
+
 ## 概要
 
 - **目的**: 実行したコマンドが正常終了したか、エラーで終了したかを自動で検知し、LINEでメッセージを受け取れるようにする。  
@@ -32,8 +29,6 @@ Bashスクリプトを利用して、任意のコマンドやスクリプト（�
     - LINE Messaging APIのトークンやユーザIDを設定するためのサンプルファイル。  
   - `logs/error_monitor.log`  
     - ログを記録するファイル。成功・失敗の結果が追記されます。
-
----
 
 ## セットアップ手順
 1. **リポジトリのクローンまたはダウンロード**  
