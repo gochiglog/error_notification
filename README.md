@@ -18,47 +18,46 @@ Bashスクリプトを利用して、任意のコマンドやスクリプト（�
 ---
 
 ## セットアップ手順
-
 1. **リポジトリのクローンまたはダウンロード**  
 ```bash
-git clone https://github.com/YourUsername/error_notification.git
+git clone https://github.com/gochiglog/error_notification.git
 ```
+2. **ユーザが Bot を友だち追加**  
+ - Bot が「あなたのIDは Uxxxxxx です」というメッセージを返信
 
-2. **依存コマンドの確認**    
+3. **依存コマンドの確認**    
 このスクリプトは、HTTPリクエスト送信のために curl を使用します。
 macOS/Linux、あるいはWindowsのGit Bashなら通常は curl が同梱されています。
 
-3. **依存コマンドの確認**   
+4. **依存コマンドの確認**   
  - `resources/` ディレクトリ内に `.env.sample` というサンプルファイルがあります。これを `.env` という名前でコピーし、中身を編集してください。
 ```bash
 cp resources/.env.sample resources/.env
 ```
- - resources/.env を開き、下記2つの値を設定します。
+ - resources/.env を開き、先ほどBotから教えてもらったIDを設定してください。
 ```bash
-LINE_CHANNEL_ACCESS_TOKEN="あなたのLong-livedチャネルアクセストークン"
 LINE_USER_ID="Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
- - `.env` には絶対に秘密のトークンを公開しないよう注意してください。.gitignore で除外されているか確認しましょう。
 
-4. **スクリプトに実行権限を付与**  
+5. **スクリプトに実行権限を付与**  
 ```bash
 chmod +x bin/wrapper.sh
 ```
 
-5. **テスト実行**  
+6. **テスト実行**  
  - 正常に終わるコマンド（例：echo "Hello"）をラップして実行:
 ```bash
-./error_notification/bin/wrapper.sh ls /no_such_dir
+./error_notification/bin/wrapper.sh echo "Hello"
 ```
  - あえて失敗するコマンド(存在しないディレクトリ参照):
  ```bash
- ./error_notification/bin/wrapper.sh ls /no_such_dir
+ ./error_notification/bin/wrapper.sh ls /non_exit_dir
  ```
 
 6. **実際の使用方法** 
 ↓のようにし、実行します
 ```bash
-./error_notification/bin/wrapper.sh [実行したいコマンド]
+./error_notification/bin/wrapper.sh [実行したいコマンド(.pyなど)]
 ```
 
 7. **ディレクトリ構成** 
@@ -68,7 +67,6 @@ error_notification/
 │   └─ wrapper.sh          # コマンドをラップするメインスクリプト
 ├─ resources/
 │   ├─ .env.sample         # サンプル環境変数ファイル
-│   └─ .env                # 実際の環境変数（Git管理対象外推奨）
 ├─ logs/
 │   └─ error_monitor.log   # 成功・失敗の結果を追記するログ
 ├─ .gitignore
