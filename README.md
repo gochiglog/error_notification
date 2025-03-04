@@ -7,16 +7,16 @@ Bashスクリプトを利用して、任意のコマンドやスクリプト（�
 
 ```plaintext
        ┌───────────────────────────┐         ┌───────────────────────────┐
-       │ (A) Webhook Handling     │         │ (B) Error Notification    │
-       │ linebot_webhook_handler  │         │  notify_error (Lambda)    │
-       │ (Lambda)                 │         │                           │
+       │ (A) Webhook Handling     │         │ (B) Error Notification     │
+       │ linebot_webhook_handler  │         │  notify_error              │
+       │ (AWS Lambda)             │         │  (AWS Lambda)              │
        └───────────────────────────┘         └───────────────────────────┘
 
 (ユーザPC) ─(エラー発生)─> [API Gateway (/notifyError)] ─> notify_error
                  │
 (友だち追加) ─> [API Gateway (/webhook)] ─> linebot_webhook_handler
                  │
-                [DynamoDB] ──> [User's LINE BOT]
+                [AWS DynamoDB] ──> [User's LINE BOT]
 ```
 ---
 
