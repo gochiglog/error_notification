@@ -38,7 +38,6 @@ cp resources/.env.sample resources/.env
 LINE_CHANNEL_ACCESS_TOKEN="あなたのLong-livedチャネルアクセストークン"
 LINE_USER_ID="Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
- - `.env` には絶対に秘密のトークンを公開しないよう注意してください。.gitignore で除外されているか確認しましょう。
 
 4. **スクリプトに実行権限を付与**  
 ```bash
@@ -48,7 +47,7 @@ chmod +x bin/wrapper.sh
 5. **テスト実行**  
  - 正常に終わるコマンド（例：echo "Hello"）をラップして実行:
 ```bash
-./error_notification/bin/wrapper.sh ls /no_such_dir
+./error_notification/bin/wrapper.sh echo "Hello"
 ```
  - あえて失敗するコマンド(存在しないディレクトリ参照):
  ```bash
@@ -68,7 +67,6 @@ error_notification/
 │   └─ wrapper.sh          # コマンドをラップするメインスクリプト
 ├─ resources/
 │   ├─ .env.sample         # サンプル環境変数ファイル
-│   └─ .env                # 実際の環境変数（Git管理対象外推奨）
 ├─ logs/
 │   └─ error_monitor.log   # 成功・失敗の結果を追記するログ
 ├─ .gitignore
