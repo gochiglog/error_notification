@@ -2,11 +2,10 @@
 
 Bashスクリプトを利用して、任意のコマンドやスクリプト（例：Pythonなど）の実行結果が「成功したか／失敗したか」をLINEに通知するプロジェクトです。 
 
-```plaintext  
-　　　　　　　　　　　　　　　　　　　　　　　　　　┌─────────────────────────────────────┐┌────────────────────────────────────────────┐
-│ (A) Webhook Handling                 ││ (B) Error Notification                     │
-│  linebot_webhook_handler (Lambda)  　││  notify_error (Lambda)                     │
-└──────────────────────────────────────┘└────────────────────────────────────────────┘
+```plaintext  　　　　　　　　　　　　　┌─────────────────────────────────────┐┌────────────────────────────────────────┐
+│ (A) Webhook Handling                 ││ (B) Error Notification                │
+│  linebot_webhook_handler (Lambda)  　││  notify_error (Lambda)                │
+└──────────────────────────────────────┘└───────────────────────────────────────┘
        [User's LINE BOT] (友だち追加)                    [User's PC] (エラー発生)
                    |                                               |
                    v                                               v
