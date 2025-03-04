@@ -21,7 +21,7 @@ Bashスクリプトを利用して、任意のコマンドやスクリプト（�
                    |                                               |
                    v                                               v
                [DynamoDB]                                    [User's LINE BOT]
-```
+
 ---
 ## 概要
 
