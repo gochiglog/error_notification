@@ -22,7 +22,9 @@ Bashスクリプトを利用して、任意のコマンドやスクリプト（�
 ```bash
 git clone https://github.com/gochiglog/error_notification.git
 ```
-2. **ユーザが Bot を友だち追加**  
+2. **ユーザが Bot を友だち追加**
+   ![image](https://github.com/user-attachments/assets/a0eb7f8c-d986-4749-b92d-ad0cc6303224)
+
  - Bot が「あなたのIDは Uxxxxxx です」というメッセージを返信
 
 3. **依存コマンドの確認**    
